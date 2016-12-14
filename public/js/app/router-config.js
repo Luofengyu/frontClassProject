@@ -8,7 +8,7 @@ angular.module('app').run(
             $rootScope.$stateParams = $stateParams;
         }
     ]
-)
+    )
     .config(
         [          '$stateProvider', '$urlRouterProvider',
             function ($stateProvider,   $urlRouterProvider) {
@@ -18,41 +18,79 @@ angular.module('app').run(
                     .state('customer', {
                         abstract: true,
                         url: '/customer',
-                        templateUrl: 'views/blank.html',
-                        controller: "navCtrl",
+                        templateUrl: 'views/blank.html'
+                    })
+                    .state('customer.login', {
+                        url: '/login',
+                        templateUrl: 'views/customer_login.html',
+                            controller: 'loginCtrl',
+                            resolve: {
+                                deps: ['$ocLazyLoad',
+                                    function ($ocLazyLoad) {
+                                        return $ocLazyLoad.load(['js/controllers/loginCtroller.js']);
+                                    }]
+                            }
+                    })
+                    .state('customer.register', {
+                        url: '/register',
+                        templateUrl: 'views/customer_register.html',
+                        controller: 'registerCtrl',
                         resolve: {
                             deps: ['$ocLazyLoad',
                                 function ($ocLazyLoad) {
-                                    return $ocLazyLoad.load(['js/controllers/navCtroller.js']);
+                                    return $ocLazyLoad.load(['js/controllers/registerCtroller.js']);
                                 }]
                         }
                     })
                     .state('customer.home', {
                         url: '/home',
-                        templateUrl: 'views/base_page.html',
-                        controller: 'customerCtrl',
-                        resolve: {
-                            deps: ['$ocLazyLoad',
-                                function ($ocLazyLoad) {
-                                    return $ocLazyLoad.load(['js/controllers/customer.js']);
-                                }]
-                        }
+                        templateUrl: 'views/index_home.html'
                     })
-                    .state('customer.login', {
-                        url: '/login',
-                        templateUrl: 'views/login.html',
-                        controller: "loginCtrl",
-                        resolve: {
-                            deps: ['$ocLazyLoad',
-                                function ($ocLazyLoad) {
-                                    return $ocLazyLoad.load(['js/controllers/loginCtroller.js']);
-                                }]
-                        }
+                    .state('product.info', {
+                        url: '/productInfo',
+                        templateUrl: 'views/product_info.html'
                     })
-                    .state('customer.register', {
-                        url: '/register',
-                        templateUrl: 'views/register.html'
+                    .state('customer.women', {
+                        url: '/women',
+                        templateUrl: 'views/product_women.html'
                     })
+                    .state('customer.men', {
+                        url: '/men',
+                        templateUrl: 'views/product_men.html'
+                    })
+                    .state('customer.other', {
+                        url: '/other',
+                        templateUrl: 'views/other.html'
+                    })
+                    .state('customer.productInfo', {
+                        url: '/productInfo',
+                        templateUrl: 'views/product_info.html'
+                    })
+                    .state('customer.shopCart', {
+                        url: '/shopCart',
+                        templateUrl: 'views/shoppingCart.html'
+                    })
+
+                    //店铺路由
+                    .state('store', {
+                        abstract: true,
+                        url: '/store',
+                        templateUrl: 'views/blank.html'
+                    })
+                    .state('store.login', {
+                        url: '/storeLogin',
+                        templateUrl: 'views/store_login.html'
+                    })
+                    .state('store.register', {
+                        url: '/storeRegister',
+                        templateUrl: 'views/store_register.html'
+                    })
+                    .state('store.loadProInfo', {
+                        url: '/loadProInfo',
+                        templateUrl: 'views/product_load.html'
+                    })
+
+
             }
-            ]
+        ]
     )

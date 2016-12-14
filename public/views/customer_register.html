@@ -1,0 +1,32 @@
+  <!--用户注册页面-->
+          <div class="register_account">
+          	<div class="wrap">
+    	      <h4 class="title">注册新用户</h4>
+    		   <form>
+    			 <div class="col_1_of_2 span_1_of_2">
+		   			 <div><input type="text" ng-model="firstname" placeholder="First Name"></div>
+		    			<div><input type="text" ng-model="lastname" placeholder="Last Name"></div>
+		    			<div><input type="text" ng-model="Email" placeholder="E-Mail"></div>
+		    			<div><input type="text" ng-model="password" placeholder="password"></div>
+		    	 </div>
+		    	  <div class="col_1_of_2 span_1_of_2">
+
+		    		<div><select id="country" ng-model="city" class="frm-field required">
+		            <option value="null">选择城市</option>
+		            <option value="AX">北京</option>
+		            <option value="AF">上海</option>
+		            <option value="AL">广州</option>
+		            <option value="DZ">深圳</option></select>
+					</div>
+				  	<div><input type="text" ng-model="address" placeholder="Address"></div>
+		          	<div><input type="text" ng-model="age" placeholder="Age"></div>
+
+		          	<input type="text" ng-model="telephone" placeholder="电话号码">
+					<p class="code">电话号码</p>
+		          </div>
+		      <button class="grey" ng-click="userRegister()">提交</button>
+		    <p class="terms">By clicking 'Create Account' you agree to the <a href="#">Terms &amp; Conditions</a>.</p>
+		    <div class="clear"></div>
+		    </form>
+    	</div>
+    </div>
