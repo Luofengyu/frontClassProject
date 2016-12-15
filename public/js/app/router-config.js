@@ -18,18 +18,25 @@ angular.module('app').run(
                     .state('customer', {
                         abstract: true,
                         url: '/customer',
-                        templateUrl: 'views/blank.html'
+                        templateUrl: 'views/blank.html',
+                        controller: 'navCtrl',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/navCtroller.js']);
+                                }]
+                        }
                     })
                     .state('customer.login', {
                         url: '/login',
                         templateUrl: 'views/customer_login.html',
-                            controller: 'loginCtrl',
-                            resolve: {
-                                deps: ['$ocLazyLoad',
-                                    function ($ocLazyLoad) {
-                                        return $ocLazyLoad.load(['js/controllers/loginCtroller.js']);
-                                    }]
-                            }
+                        controller: 'loginCtrl',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/loginCtroller.js']);
+                                }]
+                        }
                     })
                     .state('customer.register', {
                         url: '/register',
