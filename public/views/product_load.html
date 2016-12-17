@@ -69,19 +69,21 @@
                         <td><input type="checkbox"></td>
                         <td >缩略图</td>
                         <td>货物名称</td>
+                        <td>余量</td>
                         <td>详细信息</td>
                         <td>操作1</td>
                         <td>操作2</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr ng-repeat="goods in list">
                         <td><input type="checkbox"></td>
-                        <td ><img src="../image/default.png" height="100%" width="100%"></td>
-                        <td>货物名称</td>
-                        <td>详细信息</td>
-                        <td><a>修改</a></td>
-                        <td><a>删除</a></td>
+                        <td ><img src="{{goods.imgData}}" height="100%" width="100%"></td>
+                        <td>{{goods.name}}</td>
+                        <td>{{goods.number}}</td>
+                        <td>{{goods.info}}</td>
+                        <td><a ng-click="modifyProduct(goods.id)">修改</a></td>
+                        <td><a ng-click="deleteProduct(goods.id)">删除</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -92,7 +94,7 @@
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">上传图片</label>
                         <div class="col-sm-10">
-                            <input type="file" ng-model="product.image">
+                            <input accept="image/*" type="file" onchange='angular.element(this).scope().fileChanged(this)'>
                             <p class="help-block">Example block-level help text here.</p>
                         </div>
                     </div>

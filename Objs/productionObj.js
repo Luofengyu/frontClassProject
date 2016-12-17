@@ -8,7 +8,7 @@ var Schema = mongo.Schema,
 var productSchema = new Schema({
     name:{type: String},
     number:{type: String},
-    imgUrl:{type: String},
+    imgData:{type: String},
     shop:{type: String},
     info:{type: String}
 });

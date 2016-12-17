@@ -94,7 +94,14 @@ angular.module('app').run(
                     })
                     .state('store.loadProInfo', {
                         url: '/loadProInfo',
-                        templateUrl: 'views/product_load.html'
+                        templateUrl: 'views/product_load.html',
+                        controller: 'productInfoCtrl',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/production_load.js']);
+                                }]
+                        }
                     })
 
 
