@@ -21,14 +21,18 @@ app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", f
     })
 
     $scope.fileChanged = function(ele){
-        $scope.image = imageBase64Url(ele.files[0]);
-    };
+        var imgUrl = imageBase64Url(ele.files[0]);
+        convertImgToBase64(imgUrl, function(base64Img){
+            $scope.ImgBase64 = base64Img.toString();
+        });
+
+    }
     
     $scope.addProduct=function (product) {
         $http({
             url: 'http://localhost:3000/production/upload',
             method: 'POST',
-            data: {"image": $scope.image, "product": $scope.product}
+            data: {"image": $scope.ImgBase64, "product": $scope.product}
         }).success(function (res, header, config, status) {
             //响应成功
             if(res.status == "success"){
@@ -54,5 +58,21 @@ app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", f
             url = window.webkitURL.createObjectURL(file);
         }
         return url;
+    }
+    // img文件转换成base64
+    function convertImgToBase64(url, callback, outputFormat){
+        var canvas = document.createElement('CANVAS');
+        var ctx = canvas.getContext('2d');
+        var img = new Image;
+        img.crossOrigin = 'Anonymous';
+        img.onload = function(){
+            canvas.height = img.height;
+            canvas.width = img.width;
+            ctx.drawImage(img,0,0);
+            var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+            callback.call(this, dataURL);
+            canvas = null;
+        };
+        img.src = url;
     }
 }]);
