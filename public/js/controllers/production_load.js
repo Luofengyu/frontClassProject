@@ -2,24 +2,26 @@
  * Created by hasee on 2016/12/17.
  */
 app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", function($scope, $state, $cookieStore,$http){
+    //获取已有的商品列表
     $http({
         url: 'http://localhost:3000/productions',
         method: 'GET',
         data: {"shop": "1111"}
-    }).success(function (res, header, config, status) {
+    })
+        .success(function (res, header, config, status) {
         //响应成功
         if(res.status == "success"){
+            // 商品列表
             $scope.list = res.data;
-            console.log(res.data);
         }else{
            console.log(res.status);
         }
-        //scope设置
-
-    }).error(function (data, header, config, status) {
-        console.log("error")
     })
+        .error(function (data, header, config, status) {
+        console.log("error")
+    });
 
+    //修改上传文件
     $scope.fileChanged = function(ele){
         var imgUrl = imageBase64Url(ele.files[0]);
         convertImgToBase64(imgUrl, function(base64Img){
@@ -27,7 +29,8 @@ app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", f
         });
 
     }
-    
+
+    // 添加产品
     $scope.addProduct=function (product) {
         $http({
             url: 'http://localhost:3000/production/upload',
@@ -58,7 +61,7 @@ app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", f
             url = window.webkitURL.createObjectURL(file);
         }
         return url;
-    }
+    };
     // img文件转换成base64
     function convertImgToBase64(url, callback, outputFormat){
         var canvas = document.createElement('CANVAS');
@@ -75,4 +78,5 @@ app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", f
         };
         img.src = url;
     }
+    //修改商品
 }]);
