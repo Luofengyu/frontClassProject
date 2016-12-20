@@ -20,10 +20,9 @@ app.controller("registerCtrl", ["$scope", "$state", "$cookieStore","$http", func
         }).success(function (res, header, config, status) {
             //响应成功
             if(res.status == "success"){
-                console.log(res.data)
                 $cookieStore.put("login", "yes");
                 $cookieStore.put("user", res.data);
-                $state.go("customer.home");
+                $state.go("customer.home",{},{reload:true});
             }else{
                 console.log(res.status)
             }

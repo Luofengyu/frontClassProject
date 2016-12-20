@@ -51,9 +51,16 @@ angular.module('app').run(
                     })
                     .state('customer.home', {
                         url: '/home',
-                        templateUrl: 'views/index_home.html'
+                        templateUrl: 'views/index_home.html',
+                        controller: 'homeCtrl',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/homeCtroller.js']);
+                                }]
+                        }
                     })
-                    .state('product.info', {
+                    .state('productionInfo', {
                         url: '/productInfo',
                         templateUrl: 'views/product_info.html'
                     })

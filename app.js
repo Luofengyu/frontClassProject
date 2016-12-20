@@ -13,6 +13,7 @@ var users = require('./routes/users');
 var UserObj = require("./Objs/userObj");
 var productionObj = require("./Objs/productionObj");
 var shopObj = require("./Objs/shopObj");
+var cartObj = require("./Objs/cartOBJ");
 
 var webapp = express();
 
@@ -101,8 +102,26 @@ webapp.get("/shop/infomation",function (req,res){
   });
 });
 
+  //获取所有商品
+webapp.get("/home/productions",function (req,res){
+  productionObj.find({}, function(err,docs) {//查询商品
+    if (docs) {
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({
+        status: "success",
+        data: docs
+      }));//给客户端返回一个json格式的数据
+      res.end();
+    } else {
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({status: "fail"}));//给客户端返回一个json格式的数据
+      res.end();
+    }
+  });
+});
+
 //产品上传处理
-webapp.post("/production/upload",function (req,res) {
+webapp.post("/production/upload", function (req,res) {
   var imgData = req.body.image;
   // var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
   // var dataBuffer = new Buffer(imgData, 'base64');
@@ -129,7 +148,7 @@ webapp.post("/production/upload",function (req,res) {
 });
 
 //商店注册处理
-webapp.post("/shop/register",function (req,res) {
+webapp.post("/shop/register", function (req,res) {
   var shop = shopObj(req.body);
   shop.save(function (err, docs) {
     if(docs){
@@ -147,6 +166,47 @@ webapp.post("/shop/register",function (req,res) {
     }
   })
   console.log('post message from: /shop/register');
+});
+
+//添加购物车
+webapp.post("/buy/production", function (req,res) {
+  //查询是否存在
+  console.log(req.body);
+  cartObj.find(req.body, function (err,findOBJ) {
+      if(findOBJ.length!=0){
+        cartObj.update({id: findOBJ[0]._id ,number:findOBJ[0].number+1},function (err, updateOBJ) {
+          if(updateOBJ){
+            res.contentType('json');//返回的数据类型
+            res.send(JSON.stringify({ status:"success",data:updateOBJ }));//给客户端返回一个json格式的数据
+            res.end();
+          }else{
+            res.contentType('json');//返回的数据类型
+            res.send(JSON.stringify({ status:"fail"}));//给客户端返回一个json格式的数据
+            res.end();
+          }
+        })
+      }else{
+        var cart = cartObj({
+          product_id:req.body.product_id,
+          number:1,
+          user_id:req.body.user_id
+        });
+        cart.save(function (err, docs) {
+          if(docs){
+            res.contentType('json');//返回的数据类型
+            res.send(JSON.stringify({ status:"success",data:docs }));//给客户端返回一个json格式的数据
+            res.end();
+          }else{
+            res.contentType('json');//返回的数据类型
+            res.send(JSON.stringify({ status:"fail"}));//给客户端返回一个json格式的数据
+            res.end();
+          }
+        })
+      }
+
+  });
+
+  console.log('post message from: /buy/production');
 });
 
 //删除商品

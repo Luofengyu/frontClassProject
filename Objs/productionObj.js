@@ -17,4 +17,4 @@ mongo.model("production",productSchema);
 var Production = mongo.model("production");
 
 
-module.exports = Production
+module.exports = Production;

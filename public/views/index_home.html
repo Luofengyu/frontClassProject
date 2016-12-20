@@ -67,216 +67,55 @@
 	<div class="wrap">
 		<div class="section group">
 		  <div class="cont span_2_of_3">
-		  	<h2 class="head">特色产品</h2>
 			  <div class="row">
-				  <div class="col-lg-3">
-					  <div class="inner_content clearfix">
-						  <div class="product_image">
-							  <a ui-sref="customer.productInfo"><img src="images/pic.jpg" alt="/"/></a>
-						  </div>
-						  <div class="sale-box"><span class="on_sale title_shop">New</span></div>
-						  <div class="price">
-							  <div class="cart-left">
-								  <p class="title">产品A</p>
-								  <div class="price1">
-									  <span class="actual">120.00</span>
-								  </div>
-							  </div>
-							  <div class="cart-right">
-							  </div>
-							  <div class="clear"></div>
-						  </div>
-					  </div>
+				  <h2 class="head" style="display: inline-block">商品目录</h2>
+				  <div class="pull-right" style="margin-top: 1%">
+				  		<a  class="btn"  ui-sref="customer.shopCart">Cart({{ addProductCount }})</a>
+				  </div>
+				  <div class="pull-right search" style="display: inline-block">
+					  <input class="textbox" value="Search" type="text">
+					  <input value="Subscribe" id="submit" name="submit" type="submit">
 				  </div>
 			  </div>
-			<div class="top-box">
-			 <div class="col_1_of_3 span_1_of_3">
-			   <!--<a ui-sref="product.info">-->
+
+			<div ng-repeat="product in productList">
+			 <div class="col_1_of_3 span_1_of_3"> 
+
 				<div class="inner_content clearfix">
-					<div class="product_image">
-						<a ui-sref="customer.productInfo"><img src="images/pic.jpg" alt="/"/></a>
+					<div class="product_image" ng-click="toSingleItem(product)">
+						<img src="{{ product.imgData }}" alt=""/>
 					</div>
-                    <div class="sale-box"><span class="on_sale title_shop">New</span></div>
+                    <div class="sale-box"><span class="on_sale title_shop">New</span></div>	
                     <div class="price">
 					   <div class="cart-left">
-							<p class="title">产品A</p>
+							<p class="title">{{product.name}}</p>
 							<div class="price1">
-							  <span class="actual">120.00</span>
+							  <span class="actual">${{product.price}}</span>
 							</div>
 						</div>
-						<div class="cart-right">
-						</div>
-						<div class="clear"></div>
-					 </div>
-                   </div>
-                 <!--</a>-->
-				</div>
-				<div class="clear"></div>
-			</div>
-		  <h2 class="head">白领必备</h2>
-		  <div class="top-box1">
-			  <div class="col_1_of_3 span_1_of_3">
-			  	 <a href="single.html">
-				 <div class="inner_content clearfix">
-					<div class="product_image">
-						<img src="images/pic8.jpg" alt=""/>
-					</div>
-                     <div class="sale-box"><span class="on_sale title_shop">New</span></div>	
-                    <div class="price">
-					   <div class="cart-left">
-							<p class="title">Lorem Ipsum simply</p>
-							<div class="price1">
-							  <span class="actual">$12.00</span>
-							</div>
-						</div>
-						<div class="cart-right"> </div>
+						<div class="cart-right" ng-click="addToCart(product)"> </div>
 						<div class="clear"></div>
 					 </div>				
                    </div>
-                   </a>
-				</div>
-				<div class="col_1_of_3 span_1_of_3">
-					 <a href="single.html">
-					<div class="inner_content clearfix">
-					<div class="product_image">
-						<img src="images/pic4.jpg" alt=""/>
-					</div>
-				    <div class="price">
-					   <div class="cart-left">
-							<p class="title">Lorem Ipsum simply</p>
-							<div class="price1">
-							  <span class="actual">$12.00</span>
-							</div>
-						</div>
-						<div class="cart-right"> </div>
-						<div class="clear"></div>
-					 </div>				
-                   </div>
-                   </a>
-				</div>
-				<div class="col_1_of_3 span_1_of_3">
-				 <a href="single.html">
-				 <div class="inner_content clearfix">
-					<div class="product_image">
-						<img src="images/pic2.jpg" alt=""/>
-					</div>
-                   	 <div class="sale-box"><span class="on_sale title_shop">New</span></div>	
-                    <div class="price">
-					   <div class="cart-left">
-							<p class="title">Lorem Ipsum simply</p>
-							<div class="price1">
-							  <span class="actual">$12.00</span>
-							</div>
-						</div>
-						<div class="cart-right"> </div>
-						<div class="clear"></div>
-					 </div>				
-                   </div>
-                   </a>
-				</div>
-				<div class="clear"></div>
-			</div>	
-	        <h2 class="head">上新</h2>
-		    <div class="section group">
-			  <div class="col_1_of_3 span_1_of_3">
-			  	 <a href="single.html">
-				 <div class="inner_content clearfix">
-					<div class="product_image">
-						<img src="images/pic5.jpg" alt=""/>
-					</div>
-                     <div class="sale-box"><span class="on_sale title_shop">New</span></div>	
-                    <div class="price">
-					   <div class="cart-left">
-							<p class="title">Lorem Ipsum simply</p>
-							<div class="price1">
-							  <span class="actual">$12.00</span>
-							</div>
-						</div>
-						<div class="cart-right"> </div>
-						<div class="clear"></div>
-					 </div>				
-                   </div>
-                   </a>
-				</div>
-				<div class="col_1_of_3 span_1_of_3">
-					<a href="single.html">
-					<div class="inner_content clearfix">
-					<div class="product_image">
-						<img src="images/pic2.jpg" alt=""/>
-					</div>
-					 <div class="sale-box"><span class="on_sale title_shop">New</span></div>	
-                    <div class="price">
-					   <div class="cart-left">
-							<p class="title">Lorem Ipsum simply</p>
-							<div class="price1">
-							  <span class="actual">$12.00</span>
-							</div>
-						</div>
-						<div class="cart-right"> </div>
-						<div class="clear"></div>
-					 </div>				
-                   </div>
-                   </a>
-				</div>
-				<div class="col_1_of_3 span_1_of_3">
-				 <a href="single.html">
-				 <div class="inner_content clearfix">
-					<div class="product_image">
-						<img src="images/pic3.jpg" alt=""/>
-					</div>
-                   	 <div class="sale-box"><span class="on_sale title_shop">New</span></div>	
-                    <div class="price">
-					   <div class="cart-left">
-							<p class="title">Lorem Ipsum simply</p>
-							<div class="price1">
-							  <span class="actual">$12.00</span>
-							</div>
-						</div>
-						<div class="cart-right"> </div>
-						<div class="clear"></div>
-					 </div>				
-                   </div>
-                   </a>
-				</div>
-				<div class="clear"></div>
-			</div>			 						 			    
-		  </div>
-			<div class="rsidebar span_1_of_left">
-				<div class="top-border"> </div>
+				</div></div>
+
+
+			  <!--在这里添加新的，以box类为单位-->
+
+
+			  </div></div></div></div>
+
+			<div class="rsidebar span_1_of_left panel">
+				<div class="top-border"></div>
+				<div class="panel panel-heading">系统推荐</div>
 				 <div class="border">
-	             <!--<link href="css/default.css" rel="stylesheet" type="text/css" media="all" />-->
-	             <!--<link href="css/nivo-slider.css" rel="stylesheet" type="text/css" media="all" />-->
-				  <!--<script src="js/jquery.nivo.slider.js"></script>-->
-				    <!--<script type="text/javascript">-->
-				    <!--$(window).load(function() {-->
-				        <!--$('#slider').nivoSlider();-->
-				    <!--});-->
-				    <!--</script>-->
-		    <div class="slider-wrapper theme-default">
+		    <div class="slider-wrapper theme-default" style="cursor: pointer">
               <div id="slider" class="nivoSlider">
                 <!--<img src="images/t-img1.jpg"  alt="" />-->
-               	<img src="images/t-img2.jpg"  alt="" />
-                <!--<img src="images/t-img3.jpg"  alt="" />-->
+               	<img src="{{advice.imgData}}" ng-click="toSingleItem(advice)" alt="" />
               </div>
              </div>
-              <div class="btn"><a ui-sref="customer.productInfo">点击查看详情</a></div>
              </div>
-           <div class="top-border"> </div>
-			<div class="sidebar-bottom">
-			    <h2 class="m_1">新资讯<br> Signup</h2>
-			    <p class="m_text">获取最新前沿资讯<br>很有料呦</p>
-			    <div class="subscribe">
-					 <!--<form>-->
-					    <!--&lt;!&ndash;<input name="userName" type="text" class="textbox">&ndash;&gt;-->
-					    <!--<input type="submit" value="点击订阅我们">-->
-						 <!--<a ui-sref="customer.login">点击订阅我们</a>-->
-					 <!--</form>-->
-					<a class="form-control" ui-sref="customer.login">点击订阅我们</a>
-	  			</div>
-			</div>
-	    </div>
+	    	</div>
 	   <div class="clear"></div>
-	</div>
-	</div>
-	</div>
 	</div>
