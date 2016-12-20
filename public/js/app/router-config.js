@@ -86,11 +86,25 @@ angular.module('app').run(
                     })
                     .state('store.login', {
                         url: '/storeLogin',
-                        templateUrl: 'views/store_login.html'
+                        templateUrl: 'views/store_login.html',
+                        controller: 'storeCtrl',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/storeCtroller.js']);
+                                }]
+                        }
                     })
                     .state('store.register', {
                         url: '/storeRegister',
-                        templateUrl: 'views/store_register.html'
+                        templateUrl: 'views/store_register.html',
+                        controller: 'shopRegisterCtrl',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/shopRegisterCtroller.js']);
+                                }]
+                        }
                     })
                     .state('store.loadProInfo', {
                         url: '/loadProInfo',

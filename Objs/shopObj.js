@@ -10,6 +10,7 @@ var shopSchema = new Schema({
     Email:{type: String},
     website:{type: String},
     subject:{type: String},
+    user_id:{type: String},
     message:{type: String}
 });
 mongo.model("shop",shopSchema);

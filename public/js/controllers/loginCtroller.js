@@ -11,7 +11,7 @@ app.controller("loginCtrl", ["$scope", "$state", "$cookieStore","$http", functio
             //响应成功
             if(res.status == "success"){
                 $cookieStore.put("login", "yes");
-                $cookieStore.put("user", res.data);
+                $cookieStore.put("user", res.data[0]);
                 $state.go("customer.home",{},{reload:true});
             }else{
                 console.log(data.status)

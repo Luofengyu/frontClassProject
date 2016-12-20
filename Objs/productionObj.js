@@ -8,8 +8,9 @@ var Schema = mongo.Schema,
 var productSchema = new Schema({
     name:{type: String},
     number:{type: String},
+    price:{type: String},
     imgData:{type: String},
-    shop:{type: String},
+    shop_id:{type: String},
     info:{type: String}
 });
 mongo.model("production",productSchema);

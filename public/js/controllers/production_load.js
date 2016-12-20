@@ -3,10 +3,11 @@
  */
 app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", function($scope, $state, $cookieStore,$http){
     //获取已有的商品列表
+    var shop = $cookieStore.get("shop");
     $http({
         url: 'http://localhost:3000/productions',
         method: 'GET',
-        data: {"shop": "1111"}
+        data: {"shop_id": shop._id}
     })
         .success(function (res, header, config, status) {
         //响应成功
@@ -32,6 +33,7 @@ app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", f
 
     // 添加产品
     $scope.addProduct=function (product) {
+        $scope.product.shop_id = shop._id;
         $http({
             url: 'http://localhost:3000/production/upload',
             method: 'POST',
@@ -39,7 +41,27 @@ app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", f
         }).success(function (res, header, config, status) {
             //响应成功
             if(res.status == "success"){
+                console.log(res.data);
                 $scope.list.push(res.data);
+            }else{
+                $scope.img = res.data;
+            }
+            //scope设置
+
+        }).error(function (data, header, config, status) {
+            console.log("error")
+        })
+    };
+    $scope.deleteProduct = function (product_id) {
+        $http({
+            url: 'http://localhost:3000/production/delete',
+            method: 'POST',
+            data: {"_id":product_id }
+        }).success(function (res, header, config, status) {
+            //响应成功
+            if(res.status == "success"){
+                console.log(res.data);
+                $state.go("store.loadProInfo",{},{reload:true});
             }else{
                 $scope.img = res.data;
             }
