@@ -7,6 +7,10 @@ var Schema = mongo.Schema,
 
 var cartSchema = new Schema({
     product_id:{type: String},
+    imageData:{type: String},
+    name:{type: String},
+    info:{type: String},
+    price:{type: String},
     number:{type: Number},
     user_id:{type: String}
 });

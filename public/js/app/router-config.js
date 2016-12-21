@@ -82,7 +82,14 @@ angular.module('app').run(
                     })
                     .state('customer.shopCart', {
                         url: '/shopCart',
-                        templateUrl: 'views/shoppingCart.html'
+                        templateUrl: 'views/shoppingCart.html',
+                        controller: 'shopCartCtrl',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/shopCartCtroller.js']);
+                                }]
+                        }
                     })
 
                     //店铺路由

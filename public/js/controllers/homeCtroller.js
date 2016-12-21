@@ -28,7 +28,14 @@ app.controller("homeCtrl", ["$scope", '$cookieStore','$http', '$state', function
         $http({
             url: 'http://localhost:3000/buy/production',
             method: 'POST',
-            data: {"product_id": production._id, "user_id": user._id}
+            data: {
+                "product_id": production._id,
+                "imageData": production.imgData,
+                "name": production.name,
+                "price": production.price,
+                "info": production.info,
+                "user_id": user._id
+            }
         }).success(function (res, header, config, status) {
             //响应成功
             if(res.status == "success"){

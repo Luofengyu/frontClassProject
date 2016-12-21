@@ -14,6 +14,7 @@ var UserObj = require("./Objs/userObj");
 var productionObj = require("./Objs/productionObj");
 var shopObj = require("./Objs/shopObj");
 var cartObj = require("./Objs/cartOBJ");
+var orderObj = require("./Objs/orderObj");
 
 var webapp = express();
 
@@ -33,7 +34,8 @@ webapp.use('/', index);
 //登陆处理
 webapp.post("/user/login",function (req,res) {
   UserObj.find(req.body, function(err,docs){//查询用户
-    if(docs){
+    console.log(docs)
+    if(docs.length == 1){
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
         status:"success",
@@ -52,18 +54,25 @@ webapp.post("/user/login",function (req,res) {
 //注册处理
 webapp.post("/user/register",function (req,res) {
   var user = UserObj(req.body);
-  user.save(function (err, docs) {
-    if(docs){
-      res.contentType('json');//返回的数据类型
-      res.send(JSON.stringify({ status:"success",data:docs }));//给客户端返回一个json格式的数据
-      res.end();
-    }else{
+  UserObj.find(req.body, function(err,finddocs){//查询用户
+    if(finddocs.length != 0){
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({ status:"fail" }));//给客户端返回一个json格式的数据
       res.end();
+    }else{
+      user.save(function (err, docs) {
+        if(docs){
+          res.contentType('json');//返回的数据类型
+          res.send(JSON.stringify({ status:"success",data:docs }));//给客户端返回一个json格式的数据
+          res.end();
+        }else{
+          res.contentType('json');//返回的数据类型
+          res.send(JSON.stringify({ status:"fail" }));//给客户端返回一个json格式的数据
+          res.end();
+        }
+      });
     }
-  });
-  console.log('post message from:/user/login');
+  })
 });
 
 //获取所有商品
@@ -120,6 +129,24 @@ webapp.get("/home/productions",function (req,res){
   });
 });
 
+//获取购物车信息
+webapp.get("/cart/productions",function (req,res){
+  cartObj.find(req.body, function(err,docs) {//查询商品
+    if (docs) {
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({
+        status: "success",
+        data: docs
+      }));//给客户端返回一个json格式的数据
+      res.end();
+    } else {
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({status: "fail"}));//给客户端返回一个json格式的数据
+      res.end();
+    }
+  });
+});
+
 //产品上传处理
 webapp.post("/production/upload", function (req,res) {
   var imgData = req.body.image;
@@ -145,6 +172,38 @@ webapp.post("/production/upload", function (req,res) {
     }
   })
   console.log('post message from:/production/upload');
+});
+
+//创建订单
+webapp.post("/order/create", function (req,res) {
+  var order = orderObj({
+    products: req.body.productions,
+    user:req.body.user
+  });
+
+  order.save(function (err, docs) {
+    if(docs){
+      for(var i=0;i<req.body.productions.length;i++){
+        cartObj.remove(req.body.productions[i],function (err, docs) {
+          if(docs){
+            console.log("remove prodction from cart");
+          }else{
+            res.contentType('json');//返回的数据类型
+            res.send(JSON.stringify({ status:"fail"}));//给客户端返回一个json格式的数据
+            res.end();
+          }
+        });
+      }
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({ status:"success",data:docs }));//给客户端返回一个json格式的数据
+      res.end();
+    }else{
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({ status:"fail"}));//给客户端返回一个json格式的数据
+      res.end();
+    }
+  });
+  console.log('post message from:/order/create');
 });
 
 //商店注册处理
@@ -188,6 +247,10 @@ webapp.post("/buy/production", function (req,res) {
       }else{
         var cart = cartObj({
           product_id:req.body.product_id,
+          imageData:req.body.imageData,
+          name: req.body.name,
+          price: req.body.price,
+          info:req.body.info,
           number:1,
           user_id:req.body.user_id
         });

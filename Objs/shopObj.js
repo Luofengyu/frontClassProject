@@ -16,4 +16,4 @@ var shopSchema = new Schema({
 mongo.model("shop",shopSchema);
 var Shop = mongo.model("shop");
 
-module.exports = Shop
+module.exports = Shop;

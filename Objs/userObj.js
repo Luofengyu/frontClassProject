@@ -22,32 +22,4 @@ var UserSchema = new Schema({
 mongo.model("user",UserSchema);
 var User = mongo.model("user");
 
-var userAdd = function (data) {
-    var user = new User({
-        firstname:data.firstname,
-        lastname:data.lastname,
-        Email:data.Email,
-        password:data.password,
-        city:data.city,
-        address:data.address,
-        age:data.age,
-        telephone:data.telephone,
-        role: "customer"
-    });
-    user.save(function(err,data) {
-        if (err) {
-            return "fail";
-        } else {
-            return "success";
-        }
-    })
-}
-
-var userModifyRole = function (user_id) {
-    User.update({id:user_id,role:"saler"},function(err,docs){//更新
-        console.log(docs);
-        console.log('update success');
-    });
-}
-
 module.exports = User;

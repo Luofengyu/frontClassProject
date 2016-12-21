@@ -14,7 +14,7 @@ app.controller("loginCtrl", ["$scope", "$state", "$cookieStore","$http", functio
                 $cookieStore.put("user", res.data[0]);
                 $state.go("customer.home",{},{reload:true});
             }else{
-                console.log(data.status)
+                console.log(res.status);
             }
             //scope设置
 
