@@ -128,6 +128,25 @@ webapp.get("/home/productions",function (req,res){
     }
   });
 });
+//获取单个商品
+webapp.get("/single/production", function (req,res){
+  productionObj.find(req.body, function(err,docs) {//查询商品
+    if (docs) {
+      console.log(docs);
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({
+        status: "success",
+        data: docs
+      }));//给客户端返回一个json格式的数据
+      res.end();
+    } else {
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({status: "fail"}));//给客户端返回一个json格式的数据
+      res.end();
+    }
+  });
+  console.log("GET: /single/production");
+});
 
 //获取购物车信息
 webapp.get("/cart/productions",function (req,res){
@@ -223,7 +242,7 @@ webapp.post("/shop/register", function (req,res) {
       res.send(JSON.stringify({ status:"fail"}));//给客户端返回一个json格式的数据
       res.end();
     }
-  })
+  });
   console.log('post message from: /shop/register');
 });
 
@@ -284,7 +303,7 @@ webapp.post("/production/delete",function (req,res) {
       res.send(JSON.stringify({ status:"fail"}));//给客户端返回一个json格式的数据
       res.end();
     }
-  })
+  });
   console.log('post message from: /shop/register');
 });
 

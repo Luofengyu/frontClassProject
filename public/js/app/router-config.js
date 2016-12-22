@@ -78,7 +78,15 @@ angular.module('app').run(
                     })
                     .state('customer.productInfo', {
                         url: '/productInfo',
-                        templateUrl: 'views/product_info.html'
+                        templateUrl: 'views/product_info.html',
+                        controller: "singleCtrl",
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/singleProductionCtroller.js']);
+                                }]
+                        }
+
                     })
                     .state('customer.shopCart', {
                         url: '/shopCart',

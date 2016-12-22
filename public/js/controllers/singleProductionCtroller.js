@@ -1,28 +1,24 @@
 /**
- * Created by hasee on 2016/12/20.
+ * Created by hasee on 2016/12/22.
  */
-app.controller("homeCtrl", ["$scope", '$cookieStore','$http', '$state', function ($scope, $cookieStore, $http, $state) {
+app.controller("singleCtrl", ["$scope", '$cookieStore','$http','$state', function ($scope, $cookieStore, $http, $state) {
     var user = $cookieStore.get("user");
-    $scope.addProductCount = 0;
+    var product_id = $cookieStore.get("singleProduction");
+    console.log(product_id);
     $http({
-        url: 'http://localhost:3000/home/productions',
-        method: 'GET'
+        url: 'http://localhost:3000/single/production',
+        method: 'GET',
+        data: {"_id": product_id}
     }).success(function (res, header, config, status) {
         //响应成功
         if(res.status == "success"){
-            $scope.productList = res.data;
-            $scope.advice = $scope.productList[$scope.productList.length-1]
+            $scope.production = res.data[0];
         }else{
             console.log(res.status)
         }
     }).error(function (data, header, config, status) {
         console.log("error")
     });
-    
-    $scope.toSingleItem = function (production) {
-        $cookieStore.put("singleProduction", production._id);
-        $state.go("customer.productInfo");
-    };
 
     $scope.addToCart = function (production) {
         $http({
@@ -39,8 +35,8 @@ app.controller("homeCtrl", ["$scope", '$cookieStore','$http', '$state', function
         }).success(function (res, header, config, status) {
             //响应成功
             if(res.status == "success"){
+                $state.go("customer.shopCart",{},{reload:true});
                 console.log(res.data);
-                $scope.addProductCount += 1
 
             }else{
                 console.log(res.status)
@@ -48,5 +44,6 @@ app.controller("homeCtrl", ["$scope", '$cookieStore','$http', '$state', function
         }).error(function (data, header, config, status) {
             console.log("error")
         });
+
     }
 }]);
