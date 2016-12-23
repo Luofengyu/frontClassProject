@@ -99,6 +99,17 @@ angular.module('app').run(
                                 }]
                         }
                     })
+                    .state('customer.order', {
+                        url: '/order',
+                        templateUrl: 'views/customer_order.html',
+                        controller: 'orderCtrl',
+                        resolve: {
+                            deps: ['$ocLazyLoad',
+                                function ($ocLazyLoad) {
+                                    return $ocLazyLoad.load(['js/controllers/orderCtroller.js']);
+                                }]
+                        }
+                    })
 
                     //店铺路由
                     .state('store', {
@@ -143,4 +154,4 @@ angular.module('app').run(
 
             }
         ]
-    )
+    );

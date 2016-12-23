@@ -78,7 +78,7 @@ webapp.post("/user/register",function (req,res) {
 //获取所有商品
 webapp.get("/productions",function (req,res) {
   productionObj.find(res.body, function (err, docs) {//查询用户
-    if (docs) {
+    if (docsdocs.length != 0 ) {
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
         status: "success",
@@ -96,7 +96,7 @@ webapp.get("/productions",function (req,res) {
   //获取商店信息
 webapp.get("/shop/infomation",function (req,res){
   shopObj.find(res.body, function(err,docs) {//查询用户
-    if (docs) {
+    if (docs.length == 1) {
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
         status: "success",
@@ -114,7 +114,7 @@ webapp.get("/shop/infomation",function (req,res){
   //获取所有商品
 webapp.get("/home/productions",function (req,res){
   productionObj.find({}, function(err,docs) {//查询商品
-    if (docs) {
+    if (docs.length != 0 ) {
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
         status: "success",
@@ -131,7 +131,7 @@ webapp.get("/home/productions",function (req,res){
 //获取单个商品
 webapp.get("/single/production", function (req,res){
   productionObj.find(req.body, function(err,docs) {//查询商品
-    if (docs) {
+    if (docs.length == 1 ) {
       console.log(docs);
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
@@ -152,6 +152,26 @@ webapp.get("/single/production", function (req,res){
 webapp.get("/cart/productions",function (req,res){
   cartObj.find(req.body, function(err,docs) {//查询商品
     if (docs) {
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({
+        status: "success",
+        data: docs
+      }));//给客户端返回一个json格式的数据
+      res.end();
+    } else {
+      res.contentType('json');//返回的数据类型
+      res.send(JSON.stringify({status: "fail"}));//给客户端返回一个json格式的数据
+      res.end();
+    }
+  });
+});
+
+//获取订单
+webapp.post("/get/order",function (req,res){
+  console.log(req.body);
+  orderObj.find(req.body, function(err,docs) {//查询订单
+    console.log(docs);
+    if (docs.length == 1 ) {
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
         status: "success",
@@ -189,7 +209,7 @@ webapp.post("/production/upload", function (req,res) {
       res.send(JSON.stringify({ status:"fail"}));//给客户端返回一个json格式的数据
       res.end();
     }
-  })
+  });
   console.log('post message from:/production/upload');
 });
 
@@ -197,7 +217,8 @@ webapp.post("/production/upload", function (req,res) {
 webapp.post("/order/create", function (req,res) {
   var order = orderObj({
     products: req.body.productions,
-    user:req.body.user
+    user:req.body.user,
+    total:req.body.total
   });
 
   order.save(function (err, docs) {
@@ -251,7 +272,7 @@ webapp.post("/buy/production", function (req,res) {
   //查询是否存在
   console.log(req.body);
   cartObj.find(req.body, function (err,findOBJ) {
-      if(findOBJ.length!=0){
+      if(findOBJ.length != 0){
         cartObj.update({id: findOBJ[0]._id ,number:findOBJ[0].number+1},function (err, updateOBJ) {
           if(updateOBJ){
             res.contentType('json');//返回的数据类型

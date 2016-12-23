@@ -1,7 +1,7 @@
 /**
  * Created by hasee on 2016/12/21.
  */
-app.controller("shopCartCtrl", ["$scope", '$cookieStore','$http', function ($scope, $cookieStore, $http) {
+app.controller("shopCartCtrl", ["$scope", '$cookieStore','$http','$state', function ($scope, $cookieStore, $http, $state) {
     $scope.user = $cookieStore.get("user");
     $scope.totalMoney = 0;
     $scope.orderList = [];
@@ -38,11 +38,12 @@ app.controller("shopCartCtrl", ["$scope", '$cookieStore','$http', function ($sco
         $http({
             url: 'http://localhost:3000/order/create',
             method: 'POST',
-            data: {"user":$scope.user, "productions":$scope.orderList}
+            data: {"user":$scope.user, "productions":$scope.orderList, "total": $scope.totalMoney}
         }).success(function (res, header, config, status) {
             //响应成功
             if(res.status == "success"){
-                console.log(res.data);
+                $cookieStore.put("order_id",res.data._id);
+                $state.go("customer.order",{},{reload:true});
             }else{
                 console.log(res.status)
             }

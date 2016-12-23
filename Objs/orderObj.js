@@ -7,7 +7,8 @@ var Schema = mongo.Schema,
 
 var orderSchema = new Schema({
     products:{type: Array},
-    user:{type: Object}
+    user:{type: Object},
+    total:{type: Number}
 });
 
 mongo.model("order",orderSchema);
