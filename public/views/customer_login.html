@@ -1,40 +1,46 @@
 <!--用户登录页面-->
 <div class="login">
-		<div class="wrap">
-			<div class="col_1_of_login span_1_of_login">
-				<h4 class="title">如果你是新用户</h4>
-				<p>具备最高效感应功能的感光变色镜片!<br><br>室内完全透明，室外时可随光线环境适度变深。得益于我们专有的 Chromea7™变色技术，镜片在各种光线环境下反应更敏捷，
-					包括直射阳光、偏射阳光和间接光线 — 例如建筑、车辆和其他表面的反射光<br><br>为您拂去心灵窗户的尘雾……</p>
-				<div class="button1">
-				   <a ui-sref="customer.register">创建账户</a>
-				 </div>
-				 <div class="clear"></div>
-			</div>
-			<div class="col_1_of_login span_1_of_login">
-			<div class="login-title">
-				<h4 class="title">用户登录</h4>
-				<div id="loginbox" class="loginbox">
-					<form action="" method="post" name="login" id="login-form">
-					  <fieldset class="input">
-						<p id="login-form-username">
-						  <label for="modlgn_username">Email</label>
-						  <input id="modlgn_username" ng-model="Email" type="text" name="email" class="inputbox" size="18" autocomplete="off">
-						</p>
-						<p id="login-form-password">
-						  <label for="modlgn_passwd">Password</label>
-						  <input id="modlgn_passwd" ng-model="password" type="password" name="password" class="inputbox" size="18" autocomplete="off">
-						</p>
-						<div class="remember">
-							<p id="login-form-remember">
-							  <label for="modlgn_remember"><a href="#">忘记密码 ? </a></label>
-						   </p>
-							<a class="button pull-right" ng-click="userLogin()">登录</a><div class="clear"></div>
-						 </div>
-					  </fieldset>
-					 </form>
-				</div>
-			</div>
+	<div class="wrap">
+		<div class="col_1_of_login span_1_of_login">
+			<h4 class="title">如果你是新用户</h4>
+			<p>具备最高效感应功能的感光变色镜片!<br><br>室内完全透明，室外时可随光线环境适度变深。得益于我们专有的 Chromea7™变色技术，镜片在各种光线环境下反应更敏捷，
+				包括直射阳光、偏射阳光和间接光线 — 例如建筑、车辆和其他表面的反射光<br><br>为您拂去心灵窗户的尘雾……</p>
+			<div class="button1">
+				<a ui-sref="customer.register">创建账户</a>
 			</div>
 			<div class="clear"></div>
 		</div>
+		<div class="col_1_of_login span_1_of_login">
+			<div class="login-title">
+				<h4 class="title">用户登录</h4>
+				<div id="loginbox" class="loginbox">
+					<form action="" method="post" name="login" id="login-form" novalidate>
+						<fieldset class="input">
+							<p id="login-form-username">
+								<label for="modlgn_username">Email</label>
+								<input id="modlgn_username" ng-model="Email" type="text" name="email" class="inputbox" size="18" autocomplete="off" required>
+							<span style="color:red" ng-show="login.email.$dirty && login.email.$invalid">
+						 		<span ng-show="login.email.$error.required">Email 不能为空</span>
+					 		</span>
+							</p>
+							<p id="login-form-password">
+								<label for="modlgn_passwd">Password</label>
+								<input id="modlgn_passwd" ng-model="password" type="password" name="password" class="inputbox" size="18" autocomplete="off" required>
+							<span style="color:red" ng-show="login.password.$dirty && login.password.$invalid">
+						 		<span ng-show="login.password.$error.required">Password 不能为空</span>
+					 		</span>
+							</p>
+							<div class="remember">
+								<p id="login-form-remember">
+									<label for="modlgn_remember"><a href="#">忘记密码 ? </a></label>
+								</p>
+								<a class="button pull-right" ng-click="userLogin()">登录</a><div class="clear"></div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
 	</div>
+</div>
