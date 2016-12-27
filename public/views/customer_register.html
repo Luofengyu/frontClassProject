@@ -15,14 +15,14 @@
 					 </span>
 
 
-				<div><input type="email" style="" class="inputbox" name="EmailInput" ng-model="Email" placeholder="Your Email" required></div>
+				<div><input type="email" style="height: 36px" class="inputbox" name="EmailInput" ng-model="Email" placeholder="Your Email" required></div>
 					 <span style="color:red" ng-show="myForm.EmailInput.$dirty && myForm.EmailInput.$invalid">
 						 <span ng-show="myForm.EmailInput.$error.required">邮箱不能为空</span>
 						 <span ng-show="myForm.EmailInput.$error.email">非法的邮箱地址</span>
 					 </span>
 
 
-				<div><input type="password" class="inputbox" name="passwordInput" ng-model="password" placeholder="Password" required></div>
+				<div><input type="password" style="height: 36px" class="inputbox" name="passwordInput" ng-model="password" placeholder="Password" required></div>
 					 <span style="color:red" ng-show="myForm.passwordInput.$dirty && myForm.passwordInput.$invalid">
 						 <span ng-show="myForm.passwordInput.$error.required">密码不能为空</span>
 					 </span>

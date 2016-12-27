@@ -34,7 +34,6 @@ webapp.use('/', index);
 //登陆处理
 webapp.post("/user/login",function (req,res) {
   UserObj.find(req.body, function(err,docs){//查询用户
-    console.log(docs)
     if(docs.length == 1){
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
@@ -76,9 +75,9 @@ webapp.post("/user/register",function (req,res) {
 });
 
 //获取所有商品
-webapp.get("/productions",function (req,res) {
-  productionObj.find(res.body, function (err, docs) {//查询用户
-    if (docsdocs.length != 0 ) {
+webapp.post("/productions",function (req,res) {
+  productionObj.find(req.body, function (err, docs) {//查询用户
+    if (docs.length != 0 ) {
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
         status: "success",
@@ -94,8 +93,8 @@ webapp.get("/productions",function (req,res) {
 });
 
   //获取商店信息
-webapp.get("/shop/infomation",function (req,res){
-  shopObj.find(res.body, function(err,docs) {//查询用户
+webapp.post("/shop/infomation",function (req,res){
+  shopObj.find(req.body, function(err,docs) {//查询用户
     if (docs.length == 1) {
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
@@ -129,10 +128,9 @@ webapp.get("/home/productions",function (req,res){
   });
 });
 //获取单个商品
-webapp.get("/single/production", function (req,res){
+webapp.post("/single/production", function (req,res){
   productionObj.find(req.body, function(err,docs) {//查询商品
     if (docs.length == 1 ) {
-      console.log(docs);
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
         status: "success",
@@ -145,11 +143,11 @@ webapp.get("/single/production", function (req,res){
       res.end();
     }
   });
-  console.log("GET: /single/production");
+  console.log("POST: /single/production");
 });
 
 //获取购物车信息
-webapp.get("/cart/productions",function (req,res){
+webapp.post("/cart/productions",function (req,res){
   cartObj.find(req.body, function(err,docs) {//查询商品
     if (docs) {
       res.contentType('json');//返回的数据类型
@@ -168,9 +166,7 @@ webapp.get("/cart/productions",function (req,res){
 
 //获取订单
 webapp.post("/get/order",function (req,res){
-  console.log(req.body);
   orderObj.find(req.body, function(err,docs) {//查询订单
-    console.log(docs);
     if (docs.length == 1 ) {
       res.contentType('json');//返回的数据类型
       res.send(JSON.stringify({
@@ -249,9 +245,11 @@ webapp.post("/order/create", function (req,res) {
 //商店注册处理
 webapp.post("/shop/register", function (req,res) {
   var shop = shopObj(req.body);
+  console.log(shop);
   shop.save(function (err, docs) {
     if(docs){
-      UserObj.update({id:shop.user_id ,role:"saler"},function(err,docs){//更新
+      console.log(docs);
+      UserObj.update({ id:shop.user_id ,role: "saler"},function(err,docs){//更新
         console.log(docs);
         console.log('update success');
       });
@@ -325,7 +323,7 @@ webapp.post("/production/delete",function (req,res) {
       res.end();
     }
   });
-  console.log('post message from: /shop/register');
+  console.log('post message from: /production/delete');
 });
 
 

@@ -6,7 +6,7 @@ app.controller("productInfoCtrl", ["$scope", "$state", "$cookieStore","$http", f
     var shop = $cookieStore.get("shop");
     $http({
         url: 'http://localhost:3000/productions',
-        method: 'GET',
+        method: 'POST',
         data: {"shop_id": shop._id}
     })
         .success(function (res, header, config, status) {

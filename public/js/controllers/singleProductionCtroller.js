@@ -4,10 +4,9 @@
 app.controller("singleCtrl", ["$scope", '$cookieStore','$http','$state', function ($scope, $cookieStore, $http, $state) {
     var user = $cookieStore.get("user");
     var product_id = $cookieStore.get("singleProduction");
-    console.log(product_id);
     $http({
         url: 'http://localhost:3000/single/production',
-        method: 'GET',
+        method: 'POST',
         data: {"_id": product_id}
     }).success(function (res, header, config, status) {
         //响应成功

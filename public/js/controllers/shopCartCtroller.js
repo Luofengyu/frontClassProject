@@ -3,11 +3,12 @@
  */
 app.controller("shopCartCtrl", ["$scope", '$cookieStore','$http','$state', function ($scope, $cookieStore, $http, $state) {
     $scope.user = $cookieStore.get("user");
+    console.log($scope.user);
     $scope.totalMoney = 0;
     $scope.orderList = [];
     $http({
         url: 'http://localhost:3000/cart/productions',
-        method: 'GET',
+        method: 'POST',
         data: {"user_id":$scope.user._id}
     }).success(function (res, header, config, status) {
         //响应成功
